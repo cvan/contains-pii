@@ -1,0 +1,26 @@
+{
+  "name": "contains-pii",
+  "version": "0.0.1",
+  "main": "index.js",
+  "description": "A library for detecting Personally Identifiable Information (PII) in strings of text.",
+  "author": "Christopher Robert Van Wiemeersch",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cvan/contains-pii.git"
+  },
+  "homepage": "https://github.com/cvan/contains-pii#readme",
+  "bugs": {
+    "url": "https://github.com/cvan/contains-pii/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^2.4.0",
+    "semistandard": "^13.0.1"
+  },
+  "scripts": {
+    "test": "npm run lint && ava",
+    "lint": "semistandard *.js",
+    "lint:fix": "semistandard *.js --fix"
+  }
+}
