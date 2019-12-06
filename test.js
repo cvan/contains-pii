@@ -42,6 +42,16 @@ test('detects an unit number for an apartment', t => {
   t.is(result[0].detail, 'contains a property unit number');
 });
 
+test('detects an unit number for an apartment without punctutation and ends with a street suffix ("place")', t => {
+  const result = containsPII(`Unit 2 is the Place.`);
+  t.is(Boolean(result), true);
+  t.is(result.length, 2);
+  t.is(result[0].type, 'PROPERTY_UNIT_NUMBER');
+  t.is(result[0].detail, 'contains a property unit number');
+  t.is(result[1].type, 'PROPERTY_STREET_ADDRESS');
+  t.is(result[1].detail, 'contains a property street address');
+});
+
 test('detects a street address', t => {
   const result = containsPII('This 650 Castro place is dope.');
   t.is(Boolean(result), true);
@@ -93,5 +103,20 @@ test('allows number/string combo that might look like a street address', t => {
 
 test('allows a string that might look like a URL domain (FQDN)', t => {
   const result = containsPII('This is 1000 sq.ft.');
+  t.is(Boolean(result), false);
+});
+
+test('allows "lot" in a string (not a street address)', t => {
+  const result = containsPII(`This is a 1,500 sq. ft. lot.`);
+  t.is(Boolean(result), false);
+});
+
+test('allows "unit" in a string (not a street address)', t => {
+  const result = containsPII(`This unit is great.`);
+  t.is(Boolean(result), false);
+});
+
+test('allows "unit" near numbers in a string (not a street address)', t => {
+  const result = containsPII(`In this unit. 2 bed.`);
   t.is(Boolean(result), false);
 });
