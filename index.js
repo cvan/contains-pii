@@ -11,13 +11,22 @@ const VALIDATOR_REGEXPS = Object.seal({
 
 const VALIDATOR_REGEXPS_KEYS = Object.keys(VALIDATOR_REGEXPS);
 
-const VALIDATOR_ERRORS = Object.seal({
-  EMAIL: 'contains an email address',
-  PHONE: 'contains a phone number',
-  PROPERTY_UNIT_NUMBER: 'contains a property unit number',
-  PROPERTY_STREET_ADDRESS: 'contains a property street address',
-  SSN: 'contains a social-security number',
-  URL: 'contains a link to an external website'
+const VALIDATOR_ERROR_MESSAGES = Object.seal({
+  EMAIL: 'Contains an email address',
+  PHONE: 'Contains a phone number',
+  PROPERTY_UNIT_NUMBER: 'Contains a condo-unit number',
+  PROPERTY_STREET_ADDRESS: 'Contains a street address',
+  SSN: 'Contains a social-security number',
+  URL: 'Contains a link to an external website'
+});
+
+const VALIDATOR_ERROR_REASONS = Object.seal({
+  EMAIL: 'Email addresses disallowed in field',
+  PHONE: 'Phone numbers disallowed in field',
+  PROPERTY_UNIT_NUMBER: 'Condo-unit numbers disallowed in field',
+  PROPERTY_STREET_ADDRESS: 'Street addresses disallowed in field',
+  SSN: 'Social-Security Numbers disallowed in field',
+  URL: 'URLs disallowed in field'
 });
 
 const containsPII = str => {
@@ -35,7 +44,8 @@ const containsPII = str => {
     if (VALIDATOR_REGEXPS[key].test(strToTest)) {
       errors.push({
         type: key,
-        detail: VALIDATOR_ERRORS[key]
+        message: VALIDATOR_ERROR_MESSAGES[key],
+        reason: VALIDATOR_ERROR_REASONS[key]
       });
     }
   }
