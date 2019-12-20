@@ -87,24 +87,16 @@ test('allows a URL without a path', t => {
   t.is(Boolean(result), false);
 });
 
-test('detects a URL without a protocol', t => {
+test('allows URL without a protocol', t => {
   const result = containsPII('You can find more at example.com/wer.');
-  t.is(Boolean(result), true);
-  t.is(result.length, 1);
-  t.is(result[0].type, 'URL');
-  t.is(result[0].message, 'Contains a link to an external website');
-  t.is(result[0].reason, 'URLs disallowed in field');
+  t.is(Boolean(result), false);
 });
 
-test('detects a URL with a path', t => {
+test('allows a URL with a path', t => {
   const result = containsPII(
     'You can find more at https://example.com/?more-info.'
   );
-  t.is(Boolean(result), true);
-  t.is(result.length, 1);
-  t.is(result[0].type, 'URL');
-  t.is(result[0].message, 'Contains a link to an external website');
-  t.is(result[0].reason, 'URLs disallowed in field');
+  t.is(Boolean(result), false);
 });
 
 test('allows number/string combo that might look like a street address', t => {
@@ -112,7 +104,7 @@ test('allows number/string combo that might look like a street address', t => {
   t.is(Boolean(result), false);
 });
 
-test('allows a string that might look like a URL domain (FQDN)', t => {
+test('allows a string that might look like a street address', t => {
   const result = containsPII('This is 1000 sq.ft.');
   t.is(Boolean(result), false);
 });
