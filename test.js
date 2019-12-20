@@ -140,3 +140,11 @@ test('starts with a street address', t => {
   t.is(result[0].message, 'Contains a street address');
   t.is(result[0].reason, 'Street addresses disallowed in field');
 });
+
+test('allows a string body that contains false-positive-looking street addresses', t => {
+  const result = containsPII(
+    `3 beds and 2 bathrooms to the highest standards.`
+  );
+  console.log(result);
+  t.is(Boolean(result), false);
+});
