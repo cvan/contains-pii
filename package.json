@@ -1,6 +1,6 @@
 {
   "name": "contains-pii",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "index.js",
   "description": "A library for detecting Personally Identifiable Information (PII) in strings of text.",
   "author": "Christopher Robert Van Wiemeersch",
